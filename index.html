@@ -316,36 +316,34 @@ function renderAll() {
     document.getElementById('sumVersand').innerText = fmt(sumVersand);
     document.getElementById('total').innerText = fmt(sumL + sumP + sumVersand);
 }
-const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-function showPreview() {
-  if (isMobile) {
-    downloadPDF();
-    return;
-  }
-if (isMobile) {
-  document.querySelector('.btn-preview').innerText = 'PDF herunterladen';
-}
 
-  // Desktop → normale Vorschau
-  document.getElementById('preview-modal').style.display = 'block';
-}
 function downloadPDF() {
-  const el = document.getElementById('pdf-export-area');
 
-  html2pdf().from(el).set({
-    margin: 10,
-    filename: 'Angebot.pdf',
-    html2canvas: {
-      scale: isMobile ? 1.5 : 2.5,
-      useCORS: true,
-      scrollY: 0
-    },
-    jsPDF: {
-      unit: 'mm',
-      format: 'a4',
-      orientation: 'portrait'
+    if (isMobile) {
+        alert(
+            "Das PDF kann auf dem Smartphone leider nicht zuverlässig erstellt werden.\n\n" +
+            "Bitte öffne den Rechner am Desktop oder Laptop."
+        );
+        return;
     }
-  }).save();
+
+    const el = document.getElementById('pdf-export-area');
+    const k = document.getElementById('kunde').value.replace(/\s+/g, '_') || "Kunde";
+    const a = document.getElementById('anlass').value.replace(/\s+/g, '_') || "Angebot";
+
+    html2pdf().from(el).set({
+        margin: 10,
+        filename: `Angebot_${k}_${a}.pdf`,
+        html2canvas: {
+            scale: 2.5,
+            useCORS: true
+        },
+        jsPDF: {
+            unit: 'mm',
+            format: 'a4',
+            orientation: 'portrait'
+        }
+    }).save();
 }
 
     function showPreview() {
@@ -399,6 +397,13 @@ function downloadPDF() {
     }
 
     initSettings(); updateAll();
+if (isMobile) {
+    const btn = document.getElementById('pdf-btn');
+    if (btn) {
+        btn.innerText = "PDF bitte am Desktop herunterladen";
+    }
+}
+
 </script>
 </body>
 </html>
