@@ -143,9 +143,9 @@ justify-content: space-between; border-bottom: 2px solid #333; padding-bottom: 2
 </div>
 
 <script>
-  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
+const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 const LOGO_BASE64 = ""; 
+
 
 const DEFAULTS = {
     stdVorOrt: 80,
@@ -188,8 +188,7 @@ function formatDateDE(date = new Date()) {
     });
 }
 
-    const LOGO_BASE64 = ""; 
-
+    
 
 function downloadPDF() {
 
@@ -220,8 +219,7 @@ function downloadPDF() {
     }).save();
 }
 
-initSettings();
-updateAll();
+
 
 if (isMobile) {
     const btn = document.getElementById('pdf-btn');
@@ -255,7 +253,7 @@ if (isMobile) {
 function renderAll() {
     renderConfigUI();
     renderMainUIFields();
-    updateAll();
+   
 }
 
     function renderMainUIFields() {
@@ -389,35 +387,6 @@ function renderAll() {
     document.getElementById('sumProdukt').innerText = fmt(sumP);
     document.getElementById('sumVersand').innerText = fmt(sumVersand);
     document.getElementById('total').innerText = fmt(sumL + sumP + sumVersand);
-}
-
-function downloadPDF() {
-
-    if (isMobile) {
-        alert(
-            "Das PDF kann auf dem Smartphone leider nicht zuverlässig erstellt werden.\n\n" +
-            "Bitte öffne den Rechner am Desktop oder Laptop."
-        );
-        return;
-    }
-
-    const el = document.getElementById('pdf-export-area');
-    const k = document.getElementById('kunde').value.replace(/\s+/g, '_') || "Kunde";
-    const a = document.getElementById('anlass').value.replace(/\s+/g, '_') || "Angebot";
-
-    html2pdf().from(el).set({
-        margin: 10,
-        filename: `Angebot_${k}_${a}.pdf`,
-        html2canvas: {
-            scale: 2.5,
-            useCORS: true
-        },
-        jsPDF: {
-            unit: 'mm',
-            format: 'a4',
-            orientation: 'portrait'
-        }
-    }).save();
 }
 
     function showPreview() {
