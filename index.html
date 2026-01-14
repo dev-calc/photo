@@ -143,6 +143,43 @@ justify-content: space-between; border-bottom: 2px solid #333; padding-bottom: 2
 </div>
 
 <script>
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+const LOGO_BASE64 = ""; 
+
+const DEFAULTS = {
+    stdVorOrt: 80,
+    stdBearb: 50,
+    abzug: 0.50,
+    saalShip: 5.29,
+    usb: 15,
+    geschenk: 12,
+    box: 150,
+    p400: 55.31,
+    p800: 110.62,
+    pShip: 6.95,
+    kmSatz: 0.31,
+    kmFrei: 50
+};
+
+const LABELS = {
+    stdVorOrt: "Stundensatz Shooting",
+    stdBearb: "Stundensatz Bearb.",
+    abzug: "Preis Abzug",
+    saalShip: "Versand Saal",
+    usb: "Preis USB",
+    geschenk: "Preis Geschenkbox",
+    box: "Miete Fotobox",
+    p400: "Papier 400 Blatt",
+    p800: "Papier 800 Blatt",
+    pShip: "Versand Papier",
+    kmSatz: "KM-Satz",
+    kmFrei: "Frei-KM"
+};
+
+let PREISE = JSON.parse(localStorage.getItem('fotoPrices')) || { ...DEFAULTS };
+let CUSTOM_FIELDS = JSON.parse(localStorage.getItem('fotoCustomFields')) || [];
+
 function formatDateDE(date = new Date()) {
     return date.toLocaleDateString('de-DE', {
         day: '2-digit',
@@ -152,7 +189,7 @@ function formatDateDE(date = new Date()) {
 }
 
     const LOGO_BASE64 = ""; 
-const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
 
 function downloadPDF() {
 
@@ -194,11 +231,7 @@ if (isMobile) {
 }
 
 
-    const DEFAULTS = { stdVorOrt: 80, stdBearb: 50, abzug: 0.50, saalShip: 5.29, usb: 15, geschenk: 12, box: 150, p400: 55.31, p800: 110.62, pShip: 6.95, kmSatz: 0.31, kmFrei: 50 };
-    const LABELS = { stdVorOrt: "Stundensatz Shooting", stdBearb: "Stundensatz Bearb.", abzug: "Preis Abzug", saalShip: "Versand Saal", usb: "Preis USB", geschenk: "Preis Geschenkbox", box: "Miete Fotobox", p400: "Papier 400 Blatt", p800: "Papier 800 Blatt", pShip: "Versand Papier", kmSatz: "KM-Satz", kmFrei: "Frei-KM" };
 
-    let PREISE = JSON.parse(localStorage.getItem('fotoPrices')) || {...DEFAULTS};
-    let CUSTOM_FIELDS = JSON.parse(localStorage.getItem('fotoCustomFields')) || [];
 
     function initSettings() {
 
